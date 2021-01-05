@@ -808,13 +808,21 @@ JL_JITSymbol JuliaOJIT::findUnmangledSymbol(StringRef Name)
 uint64_t JuliaOJIT::getGlobalValueAddress(StringRef Name)
 {
     auto addr = findSymbol(getMangledName(Name), false);
-    return addr ? cantFail(addr.getAddress()) : 0;
+    if (Error Err = addr.takeError()) {
+        handleAllErrors(std::move(Err), [](ErrorInfoBase &EIB) {}); // handle Error for assertions
+        return 0;
+    }
+    return cantFail(addr.getAddress());
 }
 
 uint64_t JuliaOJIT::getFunctionAddress(StringRef Name)
 {
     auto addr = findSymbol(getMangledName(Name), false);
-    return addr ? cantFail(addr.getAddress()) : 0;
+    if (Error Err = addr.takeError()) {
+        handleAllErrors(std::move(Err), [](ErrorInfoBase &EIB) {}); // handle Error for assertions
+        return 0;
+    }
+    return cantFail(addr.getAddress());
 }
 
 static int globalUniqueGeneratedNames;
