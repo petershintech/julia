@@ -1020,8 +1020,7 @@ JCPPFLAGS+=-DSYSTEM_LIBUNWIND
 endif
 else
 ifeq ($(OS),Darwin)
-LIBUNWIND:=-losxunwind
-JCPPFLAGS+=-DLIBOSXUNWIND
+LIBUNWIND:=-lunwind
 else
 LIBUNWIND:=-lunwind
 endif
