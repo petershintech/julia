@@ -18,13 +18,15 @@ artifact_dir = ""
 llvmlibunwind_handle = C_NULL
 llvmlibunwind_path = ""
 
-const llvmlibunwind = Sys.isapple() ? "libunwind.1.0" : "libunwind"
+const llvmlibunwind = "libunwind"
 
 function __init__()
     global artifact_dir = dirname(Sys.BINDIR)
     global LIBPATH[] = joinpath(Sys.BINDIR, Base.LIBDIR, "julia")
-    global llvmlibunwind_handle = dlopen(llvmlibunwind)
-    global llvmlibunwind_path = dlpath(llvmlibunwind_handle)
+    @static if Sys.isapple()
+        global llvmlibunwind_handle = dlopen(llvmlibunwind)
+        global llvmlibunwind_path = dlpath(llvmlibunwind_handle)
+    end
 end
 
 # JLLWrappers API compatibility shims.  Note that not all of these will really make sense.
