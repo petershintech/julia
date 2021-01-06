@@ -81,7 +81,7 @@ checksum-llvmunwind: $(SRCCACHE)/llvmunwind-$(LLVMUNWIND_VER).tar.xz
 $(BUILDDIR)/llvmunwind-$(LLVMUNWIND_VER)/build-configured: $(SRCCACHE)/llvmunwind-$(LLVMUNWIND_VER)/source-extracted
 	mkdir -p $(dir $@)
 	cd $(dir $@) && \
-	$(CMAKE) $(dir $<) $(LIBGIT2_OPTS)
+	$(CMAKE) $(dir $<) $(LLVMUNWIND_OPTS)
 	echo 1 > $@
 
 $(BUILDDIR)/llvmunwind-$(LLVMUNWIND_VER)/build-compiled: $(BUILDDIR)/llvmunwind-$(LLVMUNWIND_VER)/build-configured
