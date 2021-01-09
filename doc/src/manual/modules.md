@@ -271,7 +271,7 @@ Here, Julia cannot decide which `f` you are referring to, so you have to make a 
 2. Use the `as` keyword above to rename one or both identifiers, eg
 
    ```julia
-   using A: f as f
+   using A: f
    using B: f as g
    ```
 
